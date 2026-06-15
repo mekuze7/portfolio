@@ -1,0 +1,11 @@
+:root {
+  --theme-transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  color: #272829;
+  overflow-x: hidden;
+  background-color: #fff;
+}
