@@ -52,8 +52,11 @@ const Skills = () => {
     <section id="skills" className="skills">
       <div className="container">
         <div className="section-title">
-          <h2>Skills</h2>
-          <p>Some introduction to my skill abilities and value is below. LET'S BUILD SOMETHING AWESOME TOGETHER</p>
+          <div className="section-title-card">
+            <div className="section-tag"><span className="section-tag-dot"></span> Technical Skills</div>
+            <h2>My Expertise &amp; Tools</h2>
+            <p>A curated snapshot of my technical skills across frontend, backend, security, and AI development.</p>
+          </div>
         </div>
 
         {Object.entries(skillGroups).map(([groupName, skills], index) => (

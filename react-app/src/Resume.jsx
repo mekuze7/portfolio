@@ -59,7 +59,8 @@ const Resume = ({ projects = [] }) => {
       <div className="container" data-aos="fade-up">
         {/* Section Title */}
         <div className="section-title text-center">
-          <h2>Resume & Experience</h2>
+          <div className="section-tag"><span className="section-tag-dot"></span> Career Journey</div>
+          <h2>Resume &amp; Experience</h2>
           <p>Explore my professional background, education, technical milestones, and certificates.</p>
 
           {/* Action CTAs */}

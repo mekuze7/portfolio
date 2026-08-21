@@ -85,8 +85,11 @@ const Portfolio = ({ projects }) => {
     <section id="portfolio" className="portfolio section-bg"> 
       <div className="container">
         <div className="section-title" data-aos="fade-up">
-          <h2>Portfolio &amp; Projects</h2>
-          <p>Explore some of my recent software development work and AI engineering projects.</p>
+          <div className="section-title-card">
+            <div className="section-tag"><span className="section-tag-dot"></span> My Work</div>
+            <h2>Portfolio &amp; Projects</h2>
+            <p>Explore my recent software development work, security projects, and AI engineering applications.</p>
+          </div>
         </div>
         <div className="portfolio-content" data-aos="fade-up" data-aos-delay="100">
           {projects.map((project, index) => (

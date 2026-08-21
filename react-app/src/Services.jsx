@@ -29,8 +29,11 @@ const Services = () => {
     <section id="services" className="services">
       <div className="container">
         <div className="section-title" data-aos="fade-up">
-          <h2>Services &amp; Expertise</h2>
-          <p>Delivering modern, robust technical solutions tailored for web, mobile, and intelligent systems.</p>
+          <div className="section-title-card">
+            <div className="section-tag"><span className="section-tag-dot"></span> What I Offer</div>
+            <h2>Services &amp; Expertise</h2>
+            <p>Delivering modern, robust technical solutions tailored for web, mobile, security, and intelligent systems.</p>
+          </div>
         </div>
         <div className="services-content" data-aos="fade-up" data-aos-delay="100">
           {servicesData.map((service, index) => (

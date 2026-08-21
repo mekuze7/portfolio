@@ -62,8 +62,11 @@ const Contact = () => {
     <section id="contact" className="contact section-bg">
       <div className="container" data-aos="fade-up">
         <div className="section-title">
-          <h2>Contact Me</h2>
-          <p>Have a project in mind or want to discuss opportunities? Send a message below or reach out directly!</p>
+          <div className="section-title-card">
+            <div className="section-tag"><span className="section-tag-dot"></span> Get In Touch</div>
+            <h2>Contact Me</h2>
+            <p>Have a project in mind or want to discuss opportunities? Send a message below or reach out directly!</p>
+          </div>
         </div>
 
         <div className="row">
