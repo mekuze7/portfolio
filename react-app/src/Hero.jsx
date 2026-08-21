@@ -1,15 +1,18 @@
 import { useEffect, useMemo, useState } from 'react';
 import ParticlesBackground from './ParticlesBackground';
+import heroLaptop from './assets/hero.png';
 
 const Hero = () => {
   const roles = useMemo(
     () => [
       'Full Stack Developer',
+      'Web Security Specialist',
+      'Cyber Security & Ethical Hacking',
       'Python & AI Enthusiast',
-      'Programer',
+      'Programmer',
       'Cross-Platform Developer',
       'UI/UX Designer',
-      'Problem Solver'
+      'Penetration Tester'
     ],
     []
   );
@@ -47,12 +50,26 @@ const Hero = () => {
   return (
     <section id="hero" className="d-flex flex-column justify-content-center align-items-center">
       <ParticlesBackground />
-      <div className="hero-container" data-aos="fade-in">
-        <div className="hero-content">
-          <h1 className="hero-name">Mekuannt Zelalem</h1>
-          <p className="hero-subtitle">
-            I'm a <span className="typed">{displayText}</span><span className="hero-cursor">|</span>
-          </p>
+      <div className="hero-laptop-stage" data-aos="zoom-in">
+        <div className="laptop-mockup-frame">
+          <img src={heroLaptop} alt="Laptop Portfolio visual" className="laptop-bg-img" />
+          <div className="laptop-screen-content">
+            <div className="hero-badge">
+              <span className="pulse-icon"></span> Available for Projects
+            </div>
+            <h1 className="hero-name">Mekuannt Zelalem</h1>
+            <p className="hero-subtitle">
+              I'm a <span className="typed">{displayText}</span><span className="hero-cursor">|</span>
+            </p>
+            <div className="hero-buttons">
+              <a href="#portfolio" className="btn btn-hero-primary me-2 mb-2">
+                <i className="bi bi-folder-check me-2"></i>View Projects
+              </a>
+              <a href="#contact" className="btn btn-hero-outline mb-2">
+                <i className="bi bi-send me-2"></i>Contact Me
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>

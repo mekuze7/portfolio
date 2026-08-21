@@ -4,32 +4,43 @@ const About = () => {
   return (
     <section id="about" className="about section-bg">
       <div className="container">
-        <div className="section-title">
-          <h2>About</h2>
+        <div className="section-title" data-aos="fade-up">
+          <h2>About Me</h2>
+          <p>Passionate developer creating intelligent, user-friendly digital experiences.</p>
         </div>
-        <div className="row">
-          <div className="col-md-4" data-aos="fade-right">
-            <img src={profileImg} className="img-fluid" alt="About Profile" />
+        <div className="row align-items-center">
+          <div className="col-lg-4 mb-4 mb-lg-0" data-aos="fade-right">
+            <div className="about-img-wrapper">
+              <img src={profileImg} className="img-fluid profile-about-img" alt="About Profile" />
+            </div>
           </div>
-          <div className="col-md-8" data-aos="fade-left">
-            <h3>Full Stack Developer (MERN) &amp; UI/UX Designer.</h3>
-            <p>
-              I'm a creative Full Stack Developer based in Ethiopia.
-              With years of hands-on experience, I build appealing websites that meet modern standards.
+          <div className="col-lg-8" data-aos="fade-left">
+            <h3 className="about-headline">Full Stack Developer, Cyber Security Specialist &amp; AI Creator</h3>
+            <p className="about-intro">
+              I'm a creative Full Stack & Cybersecurity Developer based in Ethiopia. I specialize in crafting robust, high-performance web applications, ethical hacking & penetration testing, and AI tools that adhere to modern architectural standards.
             </p>
-            <ul>
-              <li><strong>My Name:</strong> Mekuannt Zelalem</li>
-              <li><strong>Role:</strong> Full Stack Developer (MERN, Java, Python)</li>
-              <li><strong>Phone:</strong> +251 913212259</li>
-              <li><strong>City:</strong> Dilla, Ethiopia</li>
-              <li><strong>Age:</strong> 25</li>
-              <li><strong>Quick Learner </strong> yes</li>
-              <li><strong>Email:</strong> Mekuze7@gmail.com</li>
-              <li><strong>Freelance:</strong> Available</li>
-            </ul>
-            <p>
-              My specialties include quickly learning new skills and programming languages, problem solving, responsive design,
-              website optimization, cross-platform and API management.
+            <div className="row about-info-grid my-4">
+              <div className="col-sm-6 info-item mb-3">
+                <i className="bi bi-person-fill text-primary me-2"></i> <strong>Name:</strong> <span>Mekuannt Zelalem</span>
+              </div>
+              <div className="col-sm-6 info-item mb-3">
+                <i className="bi bi-telephone-fill text-primary me-2"></i> <strong>Phone:</strong> <span>+251 913212259</span>
+              </div>
+              <div className="col-sm-6 info-item mb-3">
+                <i className="bi bi-envelope-fill text-primary me-2"></i> <strong>Email:</strong> <span>Mekuze7@gmail.com</span>
+              </div>
+              <div className="col-sm-6 info-item mb-3">
+                <i className="bi bi-geo-alt-fill text-primary me-2"></i> <strong>Location:</strong> <span>Dilla, Ethiopia</span>
+              </div>
+              <div className="col-sm-6 info-item mb-3">
+                <i className="bi bi-shield-lock text-primary me-2"></i> <strong>Focus:</strong> <span>MERN, Security, Python</span>
+              </div>
+              <div className="col-sm-6 info-item mb-3">
+                <i className="bi bi-check-circle-fill text-success me-2"></i> <strong>Status:</strong> <span className="status-badge">Available for Hire</span>
+              </div>
+            </div>
+            <p className="about-footer-text">
+              My expertise includes rapid skill acquisition, full-stack app design, API design &amp; integration, database optimization, and cross-platform application development.
             </p>
           </div>
         </div>

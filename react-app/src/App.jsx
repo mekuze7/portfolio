@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import './App.css'
 import Header from './Header'
 import Hero from './Hero'
@@ -11,7 +11,6 @@ import Contact from './Contact'
 import image from './Mek.jpg'
 
 function App() {
-  const [isMobileNavActive, setIsMobileNavActive] = useState(false);
   useEffect(() => {
     // Programmatically add Icon CDNs to ensure visibility
     const bootstrapCSS = document.createElement("link");
@@ -102,14 +101,9 @@ function App() {
     }
   ];
 
-  const toggleMobileNav = () => setIsMobileNavActive(!isMobileNavActive);
-
   return (
-    <div className={`app-container ${isMobileNavActive ? 'mobile-nav-active' : ''}`}>
-      <Header 
-        isMobileNavActive={isMobileNavActive} 
-        setIsMobileNavActive={setIsMobileNavActive} 
-      />
+    <div className="app-container">
+      <Header />
 
       <Hero />
 

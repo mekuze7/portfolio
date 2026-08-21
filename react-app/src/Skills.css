@@ -1,61 +1,81 @@
+.skills {
+  padding: 80px 0;
+  background: var(--bg-color);
+}
+
 .skills .skills-content {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 16px;
 }
 
 .skills .skill-group-title {
-  font-size: 20px;
+  font-size: 1.1rem;
   font-weight: 700;
-  color: var(--title-color);
-  margin-bottom: 25px;
-  padding-left: 10px;
+  color: #ffffff;
+  margin-bottom: 20px;
+  padding-left: 12px;
   border-left: 4px solid #149ddd;
   text-transform: uppercase;
   letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .skills .skill-group-container {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  background: rgba(15, 23, 42, 0.4);
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
 }
 
 .skills .skill-card {
   width: 100%;
-  padding: 20px;
-  background: color-mix(in srgb, var(--skill-color), white 94%);
-  border-radius: 12px;
+  padding: 18px 12px;
+  background: rgba(15, 23, 42, 0.7);
+  border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  aspect-ratio: 1 / 1;
   cursor: default;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .skills .skill-card i {
-  font-size: 40px;
+  font-size: 38px;
   margin-bottom: 10px;
-  transition: transform 0.3s ease;
+  transition: transform 0.35s ease, filter 0.35s ease;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
 }
 
 .skills .skill-card .skill-name {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  text-transform: uppercase;
-  color: #272829;
+  letter-spacing: 0.5px;
+  color: #cbd5e1;
   transition: color 0.3s ease;
 }
 
 .skills .skill-card:hover {
-  transform: translateY(-8px);
-  background: #ffffff;
+  transform: translateY(-6px) scale(1.03);
+  background: rgba(20, 30, 50, 0.9);
   border-color: var(--skill-color);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px color-mix(in srgb, var(--skill-color) 40%, transparent);
 }
 
 .skills .skill-card:hover i {
-  transform: scale(1.2) rotate(5deg);
+  transform: scale(1.15) rotate(4deg);
+  filter: drop-shadow(0 0 12px var(--skill-color));
+}
+
+.skills .skill-card:hover .skill-name {
+  color: #ffffff;
 }

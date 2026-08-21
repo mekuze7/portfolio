@@ -1,41 +1,41 @@
 const getProjectTheme = (category) => {
   const cat = category.toLowerCase();
   if (cat.includes('python') || cat.includes('ai')) 
-    return { color: '#8b5cf6', bg: '#f5f0ff' }; // Violet tint
+    return { color: '#8b5cf6', bg: '#1e1b4b' }; 
   if (cat.includes('java')) 
-    return { color: '#f59e0b', bg: '#fff8e6' }; // Amber tint
+    return { color: '#f59e0b', bg: '#451a03' }; 
   if (cat.includes('node.js') || cat.includes('express'))
-    return { color: '#10b981', bg: '#e6fcf5' }; // Emerald tint
+    return { color: '#10b981', bg: '#064e3b' }; 
   if (cat.includes('tailwind') || cat.includes('css'))
-    return { color: '#0ea5e9', bg: '#e0f7ff' }; // Sky tint
+    return { color: '#0ea5e9', bg: '#0c4a6e' }; 
   if (cat.includes('react')) 
-    return { color: '#3b82f6', bg: '#e7f0ff' }; // Blue tint
+    return { color: '#38bdf8', bg: '#082f49' }; 
   
-  return { color: '#64748b', bg: '#f1f5f9' }; // Slate tint
+  return { color: '#64748b', bg: '#0f172a' }; 
 };
 
 const getTechData = (category) => {
   const techMap = {
-    'react': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', color: '#61DAFB' },
-    'node.js': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', color: '#339933' },
-    'tailwind': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg', color: '#06B6D4' },
-    'mongodb': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', color: '#47A248' },
-    'css': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', color: '#1572B6' },
-    'javascript': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', color: '#F7DF1E' },
-    'java': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg', color: '#007396' },
-    'mysql': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', color: '#4479A1' },
-    'python': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: '#3776AB' },
-    'vite': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg', color: '#646CFF' },
-    'bootstrap': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg', color: '#7952B3' },
-    'ai': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: '#6f42c1' },
-    'machine learning': { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: '#6f42c1' }
+    'react': { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', color: '#61DAFB' },
+    'node.js': { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', color: '#339933' },
+    'tailwind': { name: 'Tailwind', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg', color: '#06B6D4' },
+    'mongodb': { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', color: '#47A248' },
+    'css': { name: 'CSS3', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', color: '#1572B6' },
+    'javascript': { name: 'JS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', color: '#F7DF1E' },
+    'java': { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg', color: '#007396' },
+    'mysql': { name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', color: '#4479A1' },
+    'python': { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: '#3776AB' },
+    'vite': { name: 'Vite', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg', color: '#646CFF' },
+    'bootstrap': { name: 'Bootstrap', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg', color: '#7952B3' }
   };
 
   const techs = category.toLowerCase().split(' / ');
   const data = [];
   techs.forEach(t => {
     const key = Object.keys(techMap).find(k => t.trim().includes(k));
-    if (key) data.push(techMap[key]);
+    if (key && !data.some(d => d.name === techMap[key].name)) {
+      data.push(techMap[key]);
+    }
   });
   return data;
 };
@@ -43,26 +43,36 @@ const getTechData = (category) => {
 const ProjectCard = ({ project }) => {
   const theme = getProjectTheme(project.category);
   const techData = getTechData(project.category);
-  
+  const tags = project.category.split(' / ');
+
   return (
-    <div className="project-card" style={{ '--project-color': theme.color, '--project-bg': theme.bg }}>
-      <div className="project-card-inner">
-        <div className="project-icon-header">
-          <div className="tech-icons-row">
-            {techData.map((tech, idx) => (
-              <img key={idx} src={tech.icon} alt="tech" className="tech-logo-mini" />
-            ))}
-          </div>
+    <div className="project-card" style={{ '--project-color': theme.color }}>
+      <div className="project-card-header">
+        <div className="project-tech-icons">
+          {techData.map((tech, idx) => (
+            <img key={idx} src={tech.icon} alt={tech.name} className="tech-logo-mini" title={tech.name} />
+          ))}
         </div>
-        <div className="project-info-body">
-          <h3>{project.title}</h3>
-          <div className="project-tags">{project.category}</div>
+        <span className="project-type-pill" style={{ background: theme.color }}>
+          {tags[0]}
+        </span>
+      </div>
+
+      <div className="project-card-body">
+        <h3 className="project-title">{project.title}</h3>
+        <p className="project-description">{project.description}</p>
+        
+        <div className="project-tag-badges mb-3">
+          {tags.map((tag, idx) => (
+            <span key={idx} className="tag-badge">{tag.trim()}</span>
+          ))}
+        </div>
+
+        <div className="project-actions">
           {project.githubLink && (
-            <div className="mt-3">
-              <a href={project.githubLink} target="_blank" rel="noreferrer" className="project-button github-button">
-                <i className="bi bi-github me-2"></i> GitHub
-              </a>
-            </div>
+            <a href={project.githubLink} target="_blank" rel="noreferrer" className="btn btn-project-github">
+              <i className="bi bi-github me-2"></i> View Code
+            </a>
           )}
         </div>
       </div>
@@ -72,13 +82,13 @@ const ProjectCard = ({ project }) => {
 
 const Portfolio = ({ projects }) => {
   return (
-    <section id="portfolio" className="portfolio"> 
+    <section id="portfolio" className="portfolio section-bg"> 
       <div className="container">
-        <div className="section-title">
-          <h2>Portfolio</h2>
-          <p>Some of my awesome previous projects.</p>
+        <div className="section-title" data-aos="fade-up">
+          <h2>Portfolio &amp; Projects</h2>
+          <p>Explore some of my recent software development work and AI engineering projects.</p>
         </div>
-        <div className="portfolio-content" data-aos="fade-up">
+        <div className="portfolio-content" data-aos="fade-up" data-aos-delay="100">
           {projects.map((project, index) => (
             <ProjectCard key={index} project={project} />
           ))}

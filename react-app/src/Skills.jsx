@@ -27,6 +27,13 @@ const Skills = () => {
       { label: "MySQL", icon: "bx bxs-data", color: "#4479A1" },
       { label: "MongoDB", icon: "bx bxl-mongodb", color: "#47A248" },
     ],
+    "Cyber Security & Hacking": [
+      { label: "Web Security", icon: "bx bx-lock-alt", color: "#8B5CF6" },
+      { label: "Cyber Security", icon: "bx bx-shield-alt-2", color: "#3B82F6" },
+      { label: "Ethical Hacking", icon: "bx bx-shield-quarter", color: "#10B981" },
+      { label: "Penetration Testing", icon: "bx bx-lock-open-alt", color: "#EF4444" },
+      { label: "Network Security", icon: "bx bx-radar", color: "#F59E0B" },
+    ],
     "Languages": [
       { label: "Java", icon: "bx bxl-java", color: "#007396" },
       { label: "Python", icon: "bx bxl-python", color: "#3776AB" },

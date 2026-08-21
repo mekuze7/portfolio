@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import Magnetic from './Magnetic';
 import profileImg from './Mek.jpg';
 
-const Header = ({ isMobileNavActive, setIsMobileNavActive }) => {
+const Header = () => {
   const navItems = [
     { id: 'hero', icon: 'bx bx-home', label: 'Home' },
     { id: 'about', icon: 'bx bx-user', label: 'About' },
@@ -40,7 +39,6 @@ const Header = ({ isMobileNavActive, setIsMobileNavActive }) => {
 
   const handleNavClick = (id) => {
     setActiveSection(id);
-    setIsMobileNavActive(false);
   };
 
   return (
@@ -50,14 +48,6 @@ const Header = ({ isMobileNavActive, setIsMobileNavActive }) => {
           <div className="profile text-center">
             <img src={profileImg} alt="Mekuannt Zelalem" className="img-fluid rounded-circle" />
             <h3 className="text-light mt-3"><a href="#hero">Mekuannt Zelalem</a></h3>
-            <div className="sidebar-social-links">
-              <Magnetic>
-                <a href="https://github.com/mekuze7" className="github" target="_blank" rel="noreferrer"><i className="bx bxl-github"></i></a>
-              </Magnetic>
-              <Magnetic>
-                <a href="https://linkedin.com/in/meku-ze-00293237a" className="linkedin" target="_blank" rel="noreferrer"><i className="bx bxl-linkedin"></i></a>
-              </Magnetic>
-            </div>
           </div>
 
           <nav id="navbar" className="nav-menu navbar mt-4">

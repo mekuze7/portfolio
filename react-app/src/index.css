@@ -2,10 +2,24 @@
   --theme-transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: "Open Sans", sans-serif;
-  color: #272829;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  max-width: 100vw;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #030712 !important;
+  color: #f1f5f9;
   overflow-x: hidden;
-  background-color: #fff;
+}
+
+body {
+  font-family: "Poppins", "Open Sans", sans-serif;
+  background-color: #030712 !important;
+  min-height: 100vh;
 }
