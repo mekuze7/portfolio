@@ -96,7 +96,7 @@ function App() {
       category: "Vite / Python / React",
       description: "Advanced diagnostic tool using Python-based Machine Learning models to analyze clinical data and provide predictive health insights.",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-      githubLink: "https://github.com/mekuze7",
+      githubLink: "https://github.com/mekuze7/diseases-diagnosis-system",
     
     }
   ];

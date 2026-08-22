@@ -1,60 +1,149 @@
 import React, { useState, useRef, useEffect } from 'react';
-import emailjs from '@emailjs/browser';
+
+const RECIPIENT_EMAIL = 'mekuze7@gmail.com';
 
 const Contact = () => {
-  const formRef = useRef();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [status, setStatus] = useState({
-    loading: false,
-    error: null,
-    success: false
-  });
+  const statusTimerRef = useRef(null);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [clipboardMessage, setClipboardMessage] = useState(null);
 
   useEffect(() => {
-    if (status.success) {
-      const timer = setTimeout(() => {
-        setStatus((prev) => ({ ...prev, success: false }));
-      }, 6000);
-      return () => clearTimeout(timer);
-    }
-  }, [status.success]);
+    return () => {
+      if (statusTimerRef.current) {
+        clearTimeout(statusTimerRef.current);
+        statusTimerRef.current = null;
+      }
+    };
+  }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const clearStatusAfter = (delay) => {
+    if (statusTimerRef.current) {
+      clearTimeout(statusTimerRef.current);
+      statusTimerRef.current = null;
+    }
+    statusTimerRef.current = setTimeout(() => {
+      setErrorMessage(null);
+      setSuccessMessage(null);
+      setClipboardMessage(null);
+    }, delay);
+  };
+
+  const validateEmail = (value) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  };
+
+  const buildEmailBody = () => {
+    const separator = '—'.repeat(40);
+    return [
+      `Hi Mekuannt,`,
+      '',
+      message,
+      '',
+      separator,
+      `From:    ${name}`,
+      `Email:   ${email}`,
+      `Subject: ${subject}`,
+      separator,
+      '',
+      `Sent from my portfolio contact form.`,
+    ].join('\n');
+  };
+
+  const copyToClipboard = async (text) => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      return true;
+    } catch {
+      return false;
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus({ loading: true, error: null, success: false });
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
+      setIsLoading(false);
+      setSuccessMessage(null);
+      setClipboardMessage(null);
+      setErrorMessage('Please fill in all fields before submitting.');
+      clearStatusAfter(5000);
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setIsLoading(false);
+      setSuccessMessage(null);
+      setClipboardMessage(null);
+      setErrorMessage('Please enter a valid email address.');
+      clearStatusAfter(5000);
+      return;
+    }
+
+    setIsLoading(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    setClipboardMessage(null);
 
     try {
-      if (serviceId && templateId && publicKey && serviceId !== 'your_service_id') {
-        await emailjs.sendForm(serviceId, templateId, formRef.current, publicKey);
-      } else {
-        // Simulated successful submission delay for testing/demo when keys are not set yet
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        console.log('Form submission received:', formData);
-      }
+      const fullSubject = `[Portfolio] ${subject}`;
+      const body = buildEmailBody();
+      const mailtoUrl =
+        `mailto:${encodeURIComponent(RECIPIENT_EMAIL)}` +
+        `?subject=${encodeURIComponent(fullSubject)}` +
+        `&cc=${encodeURIComponent(email)}` +
+        `&body=${encodeURIComponent(body)}`;
 
-      setStatus({ loading: false, error: null, success: true });
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      await new Promise((r) => setTimeout(r, 500));
+
+      window.location.href = mailtoUrl;
+
+      const plaintextToCopy =
+        `To: ${RECIPIENT_EMAIL}\n` +
+        `Subject: ${fullSubject}\n\n${body}`;
+
+      const copied = await copyToClipboard(plaintextToCopy);
+
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
+      setIsLoading(false);
+      setErrorMessage(null);
+      setSuccessMessage(
+        'Your email app has been opened with a pre-filled draft. Please click "Send" there to deliver your message!'
+      );
+      if (copied) {
+        setClipboardMessage(
+          'Tip: A copy of your message is also on your clipboard, so you can paste it anywhere if your email app did not open.'
+        );
+      }
+      clearStatusAfter(12000);
     } catch (err) {
-      console.error('EmailJS Error:', err);
-      setStatus({
-        loading: false,
-        error: 'Failed to send message via EmailJS. You can also email me directly at mekuze7@gmail.com.',
-        success: false
-      });
+      console.error('Contact form error:', err);
+      setIsLoading(false);
+      setSuccessMessage(null);
+      setClipboardMessage(null);
+      setErrorMessage(
+        `Something went wrong. Please email me directly at ${RECIPIENT_EMAIL}.`
+      );
+      clearStatusAfter(10000);
     }
   };
 
@@ -63,9 +152,14 @@ const Contact = () => {
       <div className="container" data-aos="fade-up">
         <div className="section-title">
           <div className="section-title-card">
-            <div className="section-tag"><span className="section-tag-dot"></span> Get In Touch</div>
+            <div className="section-tag">
+              <span className="section-tag-dot"></span> Get In Touch
+            </div>
             <h2>Contact Me</h2>
-            <p>Have a project in mind or want to discuss opportunities? Send a message below or reach out directly!</p>
+            <p>
+              Have a project in mind or want to discuss opportunities? Send a
+              message below or reach out directly!
+            </p>
           </div>
         </div>
 
@@ -82,7 +176,12 @@ const Contact = () => {
                 <i className="bx bx-envelope"></i>
                 <h4>Email:</h4>
                 <p>
-                  <a href="mailto:mekuze7@gmail.com" style={{ color: '#38bdf8' }}>mekuze7@gmail.com</a>
+                  <a
+                    href={`mailto:${RECIPIENT_EMAIL}`}
+                    style={{ color: '#38bdf8' }}
+                  >
+                    {RECIPIENT_EMAIL}
+                  </a>
                 </p>
               </div>
 
@@ -93,18 +192,18 @@ const Contact = () => {
               </div>
 
               <div className="social-links-contact d-flex gap-2 mt-4">
-                <a 
-                  href="https://github.com/mekuze7" 
-                  target="_blank" 
-                  rel="noreferrer" 
+                <a
+                  href="https://github.com/mekuze7"
+                  target="_blank"
+                  rel="noreferrer"
                   className="contact-social-btn github"
                 >
                   <i className="bx bxl-github fs-4"></i> GitHub
                 </a>
-                <a 
-                  href="https://linkedin.com/in/meku-ze-00293237a" 
-                  target="_blank" 
-                  rel="noreferrer" 
+                <a
+                  href="https://linkedin.com/in/meku-ze-00293237a"
+                  target="_blank"
+                  rel="noreferrer"
                   className="contact-social-btn linkedin"
                 >
                   <i className="bx bxl-linkedin fs-4"></i> LinkedIn
@@ -112,19 +211,24 @@ const Contact = () => {
               </div>
 
               <div className="mt-3">
-                <a 
-                  href="mailto:mekuze7@gmail.com?subject=Portfolio%20Inquiry" 
+                <a
+                  href={`mailto:${RECIPIENT_EMAIL}?subject=Portfolio%20Inquiry`}
                   className="btn btn-hero-primary w-100 d-flex align-items-center justify-content-center gap-2"
                   style={{ borderRadius: '12px', padding: '12px' }}
                 >
-                  <i className="bx bx-paper-plane fs-5"></i> Direct Email (Gmail)
+                  <i className="bx bx-paper-plane fs-5"></i> Direct Email
+                  (Gmail)
                 </a>
               </div>
             </div>
           </div>
 
           <div className="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <form ref={formRef} onSubmit={handleSubmit} className="php-email-form">
+            <form
+              onSubmit={handleSubmit}
+              className="php-email-form"
+              noValidate
+            >
               <div className="row">
                 <div className="form-group col-md-6">
                   <label htmlFor="name">Your Name</label>
@@ -133,9 +237,9 @@ const Contact = () => {
                     name="name"
                     className="form-control"
                     id="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="John Doe"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder=""
                     required
                   />
                 </div>
@@ -146,9 +250,9 @@ const Contact = () => {
                     className="form-control"
                     name="email"
                     id="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="john@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder=""
                     required
                   />
                 </div>
@@ -160,9 +264,9 @@ const Contact = () => {
                   className="form-control"
                   name="subject"
                   id="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  placeholder="Project Collaboration"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  placeholder=""
                   required
                 />
               </div>
@@ -171,34 +275,76 @@ const Contact = () => {
                 <textarea
                   className="form-control"
                   name="message"
+                  id="message"
                   rows="7"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Hello Mekuannt, I'd like to discuss a project..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder=""
                   required
                 ></textarea>
               </div>
 
-              <div className="my-3">
-                {status.loading && (
-                  <div className="loading d-flex align-items-center gap-2">
-                    <span className="spinner-border spinner-border-sm" role="status"></span>
-                    Sending your message...
+              <div className="my-3" data-status-container>
+                {isLoading && (
+                  <div
+                    className="loading d-flex align-items-center gap-2"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    Opening your email app...
                   </div>
                 )}
-                {status.error && <div className="error-message">{status.error}</div>}
-                {status.success && (
-                  <div className="sent-message d-flex align-items-center gap-2">
+                {!isLoading && errorMessage && (
+                  <div
+                    className="error-message"
+                    role="alert"
+                    aria-live="assertive"
+                  >
+                    {errorMessage}
+                  </div>
+                )}
+                {!isLoading && successMessage && (
+                  <div
+                    className="sent-message d-flex align-items-center gap-2"
+                    role="status"
+                    aria-live="polite"
+                  >
                     <i className="bx bx-check-circle fs-5"></i>
-                    Thank you! Your message has been sent successfully.
+                    <div>
+                      <div>{successMessage}</div>
+                      {clipboardMessage && (
+                        <div style={{ fontSize: '0.875rem', opacity: 0.85, marginTop: '6px' }}>
+                          <i className="bx bx-clipboard" style={{ marginRight: '4px' }}></i>
+                          {clipboardMessage}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
 
               <div className="text-center mt-4">
-                <button type="submit" disabled={status.loading} className="w-100">
-                  {status.loading ? 'Sending...' : 'Send Message'}
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-100"
+                >
+                  {isLoading ? 'Opening Email...' : (
+                    <span className="d-flex align-items-center justify-content-center gap-2">
+                      <i className="bx bx-paper-plane"></i> Send Message
+                    </span>
+                  )}
                 </button>
+              </div>
+
+              <div className="mt-3 text-center" style={{ fontSize: '0.8rem', opacity: 0.7 }}>
+                <i className="bx bx-shield-quarter" style={{ marginRight: '4px' }}></i>
+                Private &amp; zero-config: your email app sends the message from your own account — no third-party API needed.
               </div>
             </form>
           </div>

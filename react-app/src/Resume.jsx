@@ -58,24 +58,26 @@ const Resume = ({ projects = [] }) => {
     <section id="resume" className="resume section-bg" ref={resumeRef}>
       <div className="container" data-aos="fade-up">
         {/* Section Title */}
-        <div className="section-title text-center">
-          <div className="section-tag"><span className="section-tag-dot"></span> Career Journey</div>
-          <h2>Resume &amp; Experience</h2>
-          <p>Explore my professional background, education, technical milestones, and certificates.</p>
+        <div className="section-title text-center mb-5">
+          <div className="section-title-card">
+            <div className="section-tag"><span className="section-tag-dot"></span> Career Journey</div>
+            <h2>Resume &amp; Experience</h2>
+            <p>Explore my professional background, education, technical milestones, and certificates.</p>
 
-          {/* Action CTAs */}
-          <div className="d-flex justify-content-center gap-3 mt-4 flex-wrap" data-html2canvas-ignore="true">
-            <button onClick={handleDownload} className="btn btn-hero-primary d-inline-flex align-items-center gap-2">
-              <i className="bx bx-download fs-5"></i> Download PDF Resume
-            </button>
-            <a
-              href="/AI_certificate.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn-hero-outline d-inline-flex align-items-center gap-2"
-            >
-              <i className="bx bx-award fs-5"></i> View AI Certificate
-            </a>
+            {/* Action CTAs */}
+            <div className="d-flex justify-content-center gap-3 mt-4 flex-wrap" data-html2canvas-ignore="true">
+              <button onClick={handleDownload} className="btn btn-hero-primary d-inline-flex align-items-center gap-2">
+                <i className="bx bx-download fs-5"></i> Download PDF Resume
+              </button>
+              <a
+                href="/AI_certificate.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-hero-outline d-inline-flex align-items-center gap-2"
+              >
+                <i className="bx bx-award fs-5"></i> View AI Certificate
+              </a>
+            </div>
           </div>
         </div>
 
@@ -83,7 +85,7 @@ const Resume = ({ projects = [] }) => {
           {/* Column 1: Summary & Education */}
           <div className="col-lg-6">
             {/* Professional Summary Card */}
-            <div className="resume-card mb-4" data-aos="fade-right">
+            <div className="resume-card mb-5" data-aos="fade-up">
               <div className="resume-card-header d-flex align-items-center gap-3">
                 <div className="resume-icon-badge">
                   <i className="bx bx-user-check fs-4"></i>
@@ -106,7 +108,7 @@ const Resume = ({ projects = [] }) => {
             </div>
 
             {/* Education Card */}
-            <div className="resume-card mb-4" data-aos="fade-right" data-aos-delay="100">
+            <div className="resume-card mb-5" data-aos="fade-up" data-aos-delay="100">
               <div className="resume-card-header d-flex align-items-center gap-3">
                 <div className="resume-icon-badge">
                   <i className="bx bx-book-open fs-4"></i>
@@ -137,7 +139,7 @@ const Resume = ({ projects = [] }) => {
             </div>
 
             {/* Certificate Card */}
-            <div className="resume-card cert-card" data-aos="fade-right" data-aos-delay="200">
+            <div className="resume-card cert-card mb-5" data-aos="fade-up" data-aos-delay="200">
               <div className="resume-card-header d-flex align-items-center gap-3">
                 <div className="resume-icon-badge cert-badge">
                   <i className="bx bx-certification fs-4"></i>
@@ -170,7 +172,7 @@ const Resume = ({ projects = [] }) => {
           {/* Column 2: Practical Experience & Key Projects */}
           <div className="col-lg-6">
             {/* Experience Card */}
-            <div className="resume-card mb-4" data-aos="fade-left">
+            <div className="resume-card mb-5" data-aos="fade-up" data-aos-delay="100">
               <div className="resume-card-header d-flex align-items-center gap-3">
                 <div className="resume-icon-badge">
                   <i className="bx bx-briefcase fs-4"></i>
@@ -200,7 +202,7 @@ const Resume = ({ projects = [] }) => {
             </div>
 
             {/* Key Technical Projects Showcase Card */}
-            <div className="resume-card" data-aos="fade-left" data-aos-delay="100">
+            <div className="resume-card" data-aos="fade-up" data-aos-delay="200">
               <div className="resume-card-header d-flex align-items-center gap-3">
                 <div className="resume-icon-badge">
                   <i className="bx bx-code-alt fs-4"></i>
