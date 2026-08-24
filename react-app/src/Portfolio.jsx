@@ -69,6 +69,11 @@ const ProjectCard = ({ project }) => {
         </div>
 
         <div className="project-actions">
+          {(project.link || project.githubLink) && (
+            <a href={project.link || project.githubLink} target="_blank" rel="noreferrer" className="btn btn-project-open">
+              <i className="bi bi-box-arrow-up-right me-2"></i> Open
+            </a>
+          )}
           {project.githubLink && (
             <a href={project.githubLink} target="_blank" rel="noreferrer" className="btn btn-project-github">
               <i className="bi bi-github me-2"></i> View Code

@@ -60,7 +60,7 @@ function App() {
       title: "Food Contract System",
       category: "Vite / Tailwind / React / Node.js / MongoDB / JavaScript",
       description: "Digital management system for food supply contracts and vendor interaction. Optimized procurement workflows and institutional logistics.",
-      link: "#", // This link is currently unused in ProjectCard, but kept for consistency
+      link: "https://github.com/mekuze7",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
       githubLink: "https://github.com/mekuze7",
     
@@ -69,18 +69,18 @@ function App() {
       title: "Hospital Management System",
       category: "Vite / Tailwind / Node.js / React / MongoDB / JavaScript",
       description: "Internal healthcare portal for managing patient records and staff schedules. Developed a secure pharmacy inventory module with real-time stock tracking.",
-      link: "#", // This link is currently unused in ProjectCard, but kept for consistency
+      link: "https://github.com/mekuze7/hospital_management_system",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-      githubLink: "https://github.com/mekuze7",
+      githubLink: "https://github.com/mekuze7/hospital_management_system",
     
     },
     {
       title: "Personal Portfolio Website",
       category: "Vite / React / Bootstrap / JavaScript / CSS",
       description: "Modern, high-performance portfolio featuring custom CSS animations, interactive particle backgrounds, and responsive grid layouts.",
-      link: "#", // This link is currently unused in ProjectCard, but kept for consistency
+      link: "https://mekuanntzelalem.vercel.app",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-      githubLink: "https://github.com/mekuze7",
+      githubLink: "https://github.com/mekuze7/portfolio",
     
     },
     {

@@ -344,7 +344,6 @@ const Contact = () => {
 
               <div className="mt-3 text-center" style={{ fontSize: '0.8rem', opacity: 0.7 }}>
                 <i className="bx bx-shield-quarter" style={{ marginRight: '4px' }}></i>
-                Private &amp; zero-config: your email app sends the message from your own account — no third-party API needed.
               </div>
             </form>
           </div>

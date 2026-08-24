@@ -990,9 +990,14 @@ section {
 }
 
 .project-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
   margin-top: 16px;
+  width: 100%;
 }
 
+.btn-project-open,
 .btn-project-github {
   display: inline-flex;
   align-items: center;
@@ -1005,7 +1010,23 @@ section {
   font-size: 13px;
   font-weight: 600;
   transition: all 0.3s ease;
-  width: 100%;
+  flex: 1 1 0;
+  min-width: 0;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-project-open {
+  background: var(--project-color, #149ddd);
+  border-color: var(--project-color, #149ddd);
+}
+
+.btn-project-open:hover {
+  background: color-mix(in srgb, var(--project-color, #149ddd) 85%, white);
+  border-color: color-mix(in srgb, var(--project-color, #149ddd) 85%, white);
+  color: #ffffff;
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--project-color, #149ddd) 40%, transparent);
+  transform: translateY(-2px);
 }
 
 .btn-project-github:hover {
@@ -1013,6 +1034,19 @@ section {
   color: #ffffff;
   border-color: var(--project-color, #149ddd);
   box-shadow: 0 6px 20px color-mix(in srgb, var(--project-color, #149ddd) 40%, transparent);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 380px) {
+  .project-actions {
+    gap: 6px;
+  }
+
+  .btn-project-open,
+  .btn-project-github {
+    padding-inline: 8px;
+    font-size: 12px;
+  }
 }
 
 /* SERVICES Section */
