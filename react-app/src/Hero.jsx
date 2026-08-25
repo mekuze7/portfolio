@@ -62,12 +62,6 @@ const Hero = () => {
               I'm a <span className="typed">{displayText}</span><span className="hero-cursor">|</span>
             </p>
             <div className="hero-buttons">
-              <a href="#portfolio" className="btn btn-hero-primary me-2 mb-2">
-                <i className="bi bi-folder-check me-2"></i>View Projects
-              </a>
-              <a href="#contact" className="btn btn-hero-outline mb-2">
-                <i className="bi bi-send me-2"></i>Contact Me
-              </a>
             </div>
           </div>
         </div>

@@ -1,5 +1,7 @@
 const getProjectTheme = (category) => {
   const cat = category.toLowerCase();
+  if (cat.includes('security') || cat.includes('hacking') || cat.includes('penetration') || cat.includes('ethical'))
+    return { color: '#10b981', bg: '#022c22' };
   if (cat.includes('python') || cat.includes('ai')) 
     return { color: '#8b5cf6', bg: '#1e1b4b' }; 
   if (cat.includes('java')) 
@@ -11,7 +13,7 @@ const getProjectTheme = (category) => {
   if (cat.includes('react')) 
     return { color: '#38bdf8', bg: '#082f49' }; 
   
-  return { color: '#64748b', bg: '#0f172a' }; 
+  return { color: '#64748b', bg: '#0f172a' };
 };
 
 const getTechData = (category) => {

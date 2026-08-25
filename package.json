@@ -1,4 +1,22 @@
 {
+  "name": "my-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "react-app",
+    "server"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm --prefix react-app install && npm --prefix server install",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix react-app run dev",
+    "dev": "concurrently -n SERVER,CLIENT -c green,cyan \"npm:dev:server\" \"npm:dev:client\"",
+    "build": "npm --prefix react-app run build",
+    "start": "npm --prefix server start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
   "dependencies": {
     "react-router-dom": "^7.14.2"
   }

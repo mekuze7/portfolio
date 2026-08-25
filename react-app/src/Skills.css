@@ -53,6 +53,7 @@
 
 .skills .skill-card {
   width: 100%;
+  min-width: 0;
   padding: 40px 24px 30px;
   background: rgba(15, 23, 42, 0.8);
   border-radius: 24px;
@@ -114,10 +115,14 @@
   }
 }
 
-/* Mobile */
+/* Mobile: 2 columns so cards wrap instead of overflowing */
 @media (max-width: 768px) {
+  .skills .skill-group-container {
+    padding: 24px 16px;
+  }
+
   .skills .skills-content {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
   }
 
@@ -129,11 +134,21 @@
   .skills .skill-card i {
     font-size: 42px;
   }
+
+  .skills .skill-card .skill-name {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
 }
 
 @media (max-width: 480px) {
+  .skills .skill-group-container {
+    padding: 20px 12px;
+  }
+
   .skills .skills-content {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
 

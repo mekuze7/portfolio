@@ -57,9 +57,25 @@ function App() {
 
   const projects = [
     {
+      title: "Web Vulnerability Scanner",
+      category: "Python / Cyber Security / Penetration Testing",
+      description: "Automated web application vulnerability scanner that identifies OWASP Top 10 risks including SQL injection, XSS, CSRF, and insecure authentication. Generates detailed PDF reports with remediation steps for each finding.",
+      link: "https://github.com/mekuze7",
+      img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      githubLink: "https://github.com/mekuze7",
+    },
+    {
+      title: "Network Security Assessment Toolkit",
+      category: "Python / Network Security / Ethical Hacking",
+      description: "Comprehensive penetration testing toolkit for network auditing, including port scanning, service enumeration, vulnerability detection, and brute-force testing capabilities. Includes encrypted report generation and compliance checks.",
+      link: "https://github.com/mekuze7",
+      img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      githubLink: "https://github.com/mekuze7",
+    },
+    {
       title: "Food Contract System",
       category: "Vite / Tailwind / React / Node.js / MongoDB / JavaScript",
-      description: "Digital management system for food supply contracts and vendor interaction. Optimized procurement workflows and institutional logistics.",
+      description: "Digital management system for food supply contracts and vendor interaction. Optimized procurement workflows and institutional logistics with role-based access control and secure authentication.",
       link: "https://github.com/mekuze7",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
       githubLink: "https://github.com/mekuze7",
@@ -68,7 +84,7 @@ function App() {
     {
       title: "Hospital Management System",
       category: "Vite / Tailwind / Node.js / React / MongoDB / JavaScript",
-      description: "Internal healthcare portal for managing patient records and staff schedules. Developed a secure pharmacy inventory module with real-time stock tracking.",
+      description: "Internal healthcare portal for managing patient records and staff schedules. Developed a secure pharmacy inventory module with real-time stock tracking, audit logs, and SQL-injection prevention.",
       link: "https://github.com/mekuze7/hospital_management_system",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
       githubLink: "https://github.com/mekuze7/hospital_management_system",
@@ -77,7 +93,7 @@ function App() {
     {
       title: "Personal Portfolio Website",
       category: "Vite / React / Bootstrap / JavaScript / CSS",
-      description: "Modern, high-performance portfolio featuring custom CSS animations, interactive particle backgrounds, and responsive grid layouts.",
+      description: "Modern, high-performance portfolio featuring custom CSS animations, interactive particle backgrounds, secure SMTP contact form, and responsive grid layouts with Content-Security-Policy headers.",
       link: "https://mekuanntzelalem.vercel.app",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
       githubLink: "https://github.com/mekuze7/portfolio",
@@ -86,7 +102,7 @@ function App() {
     {
       title: "Event Management System",
       category: "Java / CSS / MySQL",
-      description: "Robust desktop application utilizing Java Swing and JDBC for secure event handling and real-time MySQL database synchronization.",
+      description: "Robust desktop application utilizing Java Swing and JDBC for secure event handling and real-time MySQL database synchronization with prepared statements and parameterized queries.",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
       githubLink: "https://github.com/mekuze7/event-management_system",
       
@@ -94,7 +110,7 @@ function App() {
     {
       title: "AI Disease Diagnosis System",
       category: "Vite / Python / React",
-      description: "Advanced diagnostic tool using Python-based Machine Learning models to analyze clinical data and provide predictive health insights.",
+      description: "Advanced diagnostic tool using Python-based Machine Learning models to analyze clinical data and provide predictive health insights with secure patient data handling.",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
       githubLink: "https://github.com/mekuze7/diseases-diagnosis-system",
     

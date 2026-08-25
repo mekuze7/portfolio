@@ -38,13 +38,6 @@ const Skills = () => {
       { label: "Java", icon: "bx bxl-java", color: "#007396" },
       { label: "Python", icon: "bx bxl-python", color: "#3776AB" },
       { label: "C++", icon: "bx bxl-c-plus-plus", color: "#00599C" },
-    ],
-    "Tools & CMS": [
-      { label: "GitHub", icon: "bx bxl-github", color: "#181717" },
-      { label: "Vite", icon: "bi bi-lightning-charge", color: "#646CFF" },
-      { label: "WordPress", icon: "bx bxl-wordpress", color: "#21759B" },
-      { label: "Shopify", icon: "bx bxl-shopify", color: "#96BF48" },
-      { label: "Adobe", icon: "bx bxl-adobe", color: "#FF0000" },
     ]
   };
 

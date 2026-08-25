@@ -41,17 +41,17 @@ const About = () => {
               </p>
 
               {/* Personal Information Panel - Highly Attractive & Readable */}
-              <div className="about-info-panel mb-5" style={{ 
-                background: 'linear-gradient(145deg, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.2) 100%)', 
-                border: '1px solid rgba(56, 189, 248, 0.2)', 
-                borderRadius: '20px', 
-                padding: '28px', 
+              <div className="about-info-panel mb-5" style={{
+                background: 'linear-gradient(145deg, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.2) 100%)',
+                border: '1px solid rgba(56, 189, 248, 0.2)',
+                borderRadius: '20px',
+                padding: '28px',
                 boxShadow: '0 10px 30px rgba(0,0,0,0.2), inset 0 0 20px rgba(56, 189, 248, 0.05)',
                 position: 'relative',
                 overflow: 'hidden'
               }}>
                 <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '100px', height: '100px', background: 'rgba(56,189,248,0.1)', borderRadius: '50%', filter: 'blur(30px)' }}></div>
-                
+
                 <div className="row g-4 position-relative">
                   {/* Column 1 */}
                   <div className="col-md-6">
@@ -61,7 +61,7 @@ const About = () => {
                       </div>
                       <div>
                         <span style={{ display: 'block', fontSize: '12px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px', fontWeight: '600' }}>Phone</span>
-                        <a href="tel:+251912345678" style={{ fontSize: '1.15rem', fontWeight: '700', color: '#ffffff', textDecoration: 'none', letterSpacing: '0.5px' }}>+251 912 345 678</a>
+                        <a href="tel:+251913212259" style={{ fontSize: '1.15rem', fontWeight: '700', color: '#ffffff', textDecoration: 'none', letterSpacing: '0.5px' }}>+251 913 212 259</a>
                       </div>
                     </div>
                     <div className="d-flex align-items-center mb-4 mb-md-0">
@@ -74,7 +74,7 @@ const About = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Column 2 */}
                   <div className="col-md-6">
                     <div className="d-flex align-items-center mb-4">
@@ -83,7 +83,7 @@ const About = () => {
                       </div>
                       <div>
                         <span style={{ display: 'block', fontSize: '12px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px', fontWeight: '600' }}>Email</span>
-                        <a href="mailto:contact@example.com" style={{ fontSize: '1.15rem', fontWeight: '700', color: '#ffffff', textDecoration: 'none', letterSpacing: '0.5px' }}>contact@example.com</a>
+                        <a href="mailto:mekuze7@gmail.com" style={{ fontSize: '1.15rem', fontWeight: '700', color: '#ffffff', textDecoration: 'none', letterSpacing: '0.5px' }}>mekuze7@gmail.com</a>
                       </div>
                     </div>
                     <div className="d-flex align-items-center">

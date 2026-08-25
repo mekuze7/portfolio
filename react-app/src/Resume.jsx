@@ -1,7 +1,18 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 const Resume = ({ projects = [] }) => {
   const resumeRef = useRef();
+  const cvContentRef = useRef();
+  const [cvOpen, setCvOpen] = useState(true);
+
+  const scrollToCv = () => {
+    setCvOpen(true);
+    setTimeout(() => {
+      cvContentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      cvContentRef.current?.classList.add('cv-cards-highlight');
+      setTimeout(() => cvContentRef.current?.classList.remove('cv-cards-highlight'), 1800);
+    }, 80);
+  };
 
   const handleDownload = () => {
     const element = resumeRef.current;
@@ -39,20 +50,40 @@ const Resume = ({ projects = [] }) => {
 
   const experienceItems = [
     {
+      role: 'Cyber Security Specialist & Ethical Hacker',
+      period: '2023 - Present',
+      organization: 'Independent Security Researcher / Penetration Tester',
+      description: 'Performing web application penetration testing, vulnerability assessments, and network security audits for clients. Identifying critical OWASP Top 10 vulnerabilities, reporting findings with actionable remediation steps, and implementing secure coding practices.',
+      highlights: ['Penetration Testing (Web & Network)', 'OWASP Top 10 & Bug Bounty', 'Vulnerability Assessment', 'Network Security & Hardening']
+    },
+    {
       role: 'Full Stack & AI Developer',
       period: '2023 - Present',
       organization: 'Independent / Open Source',
-      description: 'Building end-to-end web applications, AI diagnostic engines, and scalable management systems using React, Node.js, Python, and Java.',
-      highlights: ['MERN Stack Architecture', 'RESTful API & Database Design', 'Machine Learning Models']
+      description: 'Building end-to-end secure web applications, AI diagnostic engines, and scalable management systems using React, Node.js, Python, and Java. Integrating security-first design principles into every layer of the architecture.',
+      highlights: ['MERN Stack Architecture', 'Secure RESTful APIs', 'Input Validation & Sanitization', 'Machine Learning Models']
     },
     {
       role: 'Software Developer Intern / Student Developer',
       period: '2020 - 2024',
       organization: 'Dilla University',
-      description: 'Developed core software projects including Hospital Management and Event Management applications. Collaborated on data structures and software engineering practices.',
-      highlights: ['Data Structures & Algorithms', 'Database Optimization', 'UI/UX Principles']
+      description: 'Developed core software projects including Hospital Management and Event Management applications with a focus on secure authentication, role-based access control, and SQL injection prevention. Collaborated on data structures and software engineering practices.',
+      highlights: ['Data Structures & Algorithms', 'Secure Authentication Systems', 'Database Optimization', 'UI/UX Principles']
     }
   ];
+
+  const cyberSecurityProjects = projects.filter(p =>
+    p.category.toLowerCase().includes('security') ||
+    p.category.toLowerCase().includes('hacking') ||
+    p.category.toLowerCase().includes('penetration') ||
+    p.category.toLowerCase().includes('python')
+  ).slice(0, 3);
+
+  const otherProjects = projects.filter(p =>
+    !cyberSecurityProjects.includes(p)
+  ).slice(0, 3 - cyberSecurityProjects.length);
+
+  const featuredProjects = [...cyberSecurityProjects, ...otherProjects].slice(0, 3);
 
   return (
     <section id="resume" className="resume section-bg" ref={resumeRef}>
@@ -62,13 +93,18 @@ const Resume = ({ projects = [] }) => {
           <div className="section-title-card">
             <div className="section-tag"><span className="section-tag-dot"></span> Career Journey</div>
             <h2>Resume &amp; Experience</h2>
-            <p>Explore my professional background, education, technical milestones, and certificates.</p>
+            <p>Explore my professional background in Cyber Security, Ethical Hacking, Full Stack Development, and AI Engineering.</p>
 
             {/* Action CTAs */}
             <div className="d-flex justify-content-center gap-3 mt-4 flex-wrap" data-html2canvas-ignore="true">
-              <button onClick={handleDownload} className="btn btn-hero-primary d-inline-flex align-items-center gap-2">
-                <i className="bx bx-download fs-5"></i> Download PDF Resume
-              </button>
+              <a
+                href="/mekuannt_zelalem%20_resume.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-hero-primary d-inline-flex align-items-center gap-2"
+              >
+                <i className="bx bx-file fs-5"></i> View My CV
+              </a>
               <a
                 href="/AI_certificate.pdf"
                 target="_blank"
@@ -81,7 +117,7 @@ const Resume = ({ projects = [] }) => {
           </div>
         </div>
 
-        <div className="row g-4 mt-2">
+        <div className="row g-4 mt-2" ref={cvContentRef} style={{ display: cvOpen ? '' : 'none' }}>
           {/* Column 1: Summary & Education */}
           <div className="col-lg-6">
             {/* Professional Summary Card */}
@@ -97,7 +133,7 @@ const Resume = ({ projects = [] }) => {
               </div>
               <div className="resume-card-body mt-3">
                 <p className="resume-summary-text">
-                  Passionate <strong>Full Stack Developer</strong> & <strong>AI Enthusiast</strong> with expertise in the MERN Stack, Python, Java, and Database Systems. Proven track record in designing scalable web applications and intuitive interfaces.
+                  <strong>Cyber Security Specialist &amp; Ethical Hacker (Penetration Tester)</strong> with complementary expertise as a <strong>Full Stack Developer</strong> &amp; <strong>AI Enthusiast</strong>. Skilled in identifying and exploiting vulnerabilities, conducting web &amp; network penetration tests, OWASP Top 10, secure coding, and building secure, scalable applications with the MERN Stack, Python, and Java.
                 </p>
                 <ul className="resume-contact-list list-unstyled mt-3 mb-0">
                   <li><i className="bx bx-map text-info me-2"></i><strong>Location:</strong> Dilla, Ethiopia</li>
@@ -126,44 +162,59 @@ const Resume = ({ projects = [] }) => {
                   </div>
                   <p className="edu-institution mt-1 mb-2"><em>Dilla University, Ethiopia</em></p>
                   <p className="edu-desc">
-                    Comprehensive computer science degree focusing on algorithms, database management, web technologies, and software architecture.
+                    Comprehensive computer science degree focusing on algorithms, database management, web technologies, software architecture, <strong>network security, cryptography, and secure software development.</strong>
                   </p>
                   <div className="tag-badges-container d-flex flex-wrap gap-2 mt-2">
                     <span className="tag-badge">Data Structures</span>
                     <span className="tag-badge">Software Engineering</span>
                     <span className="tag-badge">Web Development</span>
                     <span className="tag-badge">DBMS</span>
+                    <span className="tag-badge" style={{ background: 'rgba(16,185,129,0.15)', color: '#10b981' }}>Network Security</span>
+                    <span className="tag-badge" style={{ background: 'rgba(59,130,246,0.15)', color: '#3b82f6' }}>Cryptography</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Certificate Card */}
+            {/* Certificates Card */}
             <div className="resume-card cert-card mb-5" data-aos="fade-up" data-aos-delay="200">
               <div className="resume-card-header d-flex align-items-center gap-3">
                 <div className="resume-icon-badge cert-badge">
                   <i className="bx bx-certification fs-4"></i>
                 </div>
                 <div>
-                  <h3 className="resume-card-title m-0">Certificates & Awards</h3>
+                  <h3 className="resume-card-title m-0">Certificates &amp; Awards</h3>
                   <span className="resume-card-subtitle">Verified Qualifications</span>
                 </div>
               </div>
               <div className="resume-card-body mt-3">
-                <div className="d-flex justify-content-between align-items-center flex-wrap gap-3">
-                  <div>
-                    <h4 className="edu-title m-0">Artificial Intelligence & Development</h4>
-                    <p className="edu-institution mt-1 mb-0">Professional Certificate Program</p>
+                <div className="mb-3 pb-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div className="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                      <h4 className="edu-title m-0" style={{ color: '#10b981' }}>
+                        <i className="bx bx-shield-quarter me-2"></i>Cyber Security &amp; Ethical Hacking
+                      </h4>
+                      <p className="edu-institution mt-1 mb-0">Penetration Testing &amp; Network Security — Professional Training</p>
+                    </div>
+                    <span className="tag-badge" style={{ background: 'rgba(16,185,129,0.15)', color: '#10b981' }}>
+                      Active
+                    </span>
                   </div>
-                  <a
-                    href="/AI_certificate.pdf"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-sm btn-hero-outline"
-                    data-html2canvas-ignore="true"
-                  >
-                    <i className="bx bx-link-external me-1"></i> Open Certificate
-                  </a>
+                  <div className="tag-badges-container d-flex flex-wrap gap-2 mt-2">
+                    <span className="tag-badge">Pen Testing</span>
+                    <span className="tag-badge">OWASP Top 10</span>
+                    <span className="tag-badge">Web Security</span>
+                    <span className="tag-badge">Network Security</span>
+                    <span className="tag-badge">Bug Bounty</span>
+                  </div>
+                </div>
+                <div>
+                  <div className="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                      
+                    </div>
+                    
+                  </div>
                 </div>
               </div>
             </div>
@@ -178,13 +229,13 @@ const Resume = ({ projects = [] }) => {
                   <i className="bx bx-briefcase fs-4"></i>
                 </div>
                 <div>
-                  <h3 className="resume-card-title m-0">Work & Development Experience</h3>
+                  <h3 className="resume-card-title m-0">Work &amp; Development Experience</h3>
                   <span className="resume-card-subtitle">Technical Career Milestones</span>
                 </div>
               </div>
               <div className="resume-card-body mt-3">
                 {experienceItems.map((exp, idx) => (
-                  <div className="timeline-item mb-4 pb-3 border-bottom-dark" key={idx}>
+                  <div className={`timeline-item ${idx < experienceItems.length - 1 ? 'mb-4 pb-3 border-bottom-dark' : ''}`} key={idx}>
                     <div className="d-flex justify-content-between align-items-start flex-wrap gap-2">
                       <h4 className="exp-role m-0">{exp.role}</h4>
                       <span className="resume-period-badge">{exp.period}</span>
@@ -209,11 +260,11 @@ const Resume = ({ projects = [] }) => {
                 </div>
                 <div>
                   <h3 className="resume-card-title m-0">Featured Projects</h3>
-                  <span className="resume-card-subtitle">Practical Implementations</span>
+                  <span className="resume-card-subtitle">Security &amp; Software Engineering</span>
                 </div>
               </div>
               <div className="resume-card-body mt-3">
-                {projects.slice(0, 3).map((proj, idx) => (
+                {featuredProjects.map((proj, idx) => (
                   <div className="project-resume-item mb-3" key={idx}>
                     <div className="d-flex justify-content-between align-items-center flex-wrap gap-2">
                       <h5 className="proj-title m-0">{proj.title}</h5>

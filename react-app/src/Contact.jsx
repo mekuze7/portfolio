@@ -12,6 +12,7 @@ const Contact = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [clipboardMessage, setClipboardMessage] = useState(null);
+  const [useDirectSmtp, setUseDirectSmtp] = useState(true);
 
   useEffect(() => {
     return () => {
@@ -75,6 +76,35 @@ const Contact = () => {
     }
   };
 
+  const sendViaMailtoFallback = async () => {
+    const fullSubject = `[Portfolio] ${subject}`;
+    const body = buildEmailBody();
+    const mailtoUrl =
+      `mailto:${encodeURIComponent(RECIPIENT_EMAIL)}` +
+      `?subject=${encodeURIComponent(fullSubject)}` +
+      `&cc=${encodeURIComponent(email)}` +
+      `&body=${encodeURIComponent(body)}`;
+
+    await new Promise((r) => setTimeout(r, 500));
+    window.location.href = mailtoUrl;
+
+    const plaintextToCopy =
+      `To: ${RECIPIENT_EMAIL}\n` +
+      `Subject: ${fullSubject}\n\n${body}`;
+
+    const copied = await copyToClipboard(plaintextToCopy);
+
+    setSuccessMessage(
+      'Your email app has been opened with a pre-filled draft. Please click "Send" there to deliver your message!'
+    );
+    if (copied) {
+      setClipboardMessage(
+        'Tip: A copy of your message is also on your clipboard, so you can paste it anywhere if your email app did not open.'
+      );
+    }
+    clearStatusAfter(12000);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -102,39 +132,50 @@ const Contact = () => {
     setClipboardMessage(null);
 
     try {
-      const fullSubject = `[Portfolio] ${subject}`;
-      const body = buildEmailBody();
-      const mailtoUrl =
-        `mailto:${encodeURIComponent(RECIPIENT_EMAIL)}` +
-        `?subject=${encodeURIComponent(fullSubject)}` +
-        `&cc=${encodeURIComponent(email)}` +
-        `&body=${encodeURIComponent(body)}`;
+      if (useDirectSmtp) {
+        try {
+          const response = await fetch('/api/send-email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: name.trim(),
+              email: email.trim(),
+              subject: subject.trim(),
+              message: message.trim(),
+            }),
+          });
 
-      await new Promise((r) => setTimeout(r, 500));
+          const data = await response.json().catch(() => ({}));
 
-      window.location.href = mailtoUrl;
+          if (response.ok && data?.ok) {
+            setName('');
+            setEmail('');
+            setSubject('');
+            setMessage('');
+            setIsLoading(false);
+            setErrorMessage(null);
+            setSuccessMessage(
+              '✅ Your message has been sent successfully! I will get back to you soon.'
+            );
+            clearStatusAfter(10000);
+            return;
+          }
 
-      const plaintextToCopy =
-        `To: ${RECIPIENT_EMAIL}\n` +
-        `Subject: ${fullSubject}\n\n${body}`;
-
-      const copied = await copyToClipboard(plaintextToCopy);
-
-      setName('');
-      setEmail('');
-      setSubject('');
-      setMessage('');
-      setIsLoading(false);
-      setErrorMessage(null);
-      setSuccessMessage(
-        'Your email app has been opened with a pre-filled draft. Please click "Send" there to deliver your message!'
-      );
-      if (copied) {
-        setClipboardMessage(
-          'Tip: A copy of your message is also on your clipboard, so you can paste it anywhere if your email app did not open.'
-        );
+          throw new Error(data?.error || `Server error ${response.status}`);
+        } catch (apiErr) {
+          console.warn('SMTP API failed, falling back to mailto:', apiErr);
+          setUseDirectSmtp(false);
+          await sendViaMailtoFallback();
+          setIsLoading(false);
+          return;
+        }
+      } else {
+        await sendViaMailtoFallback();
+        setIsLoading(false);
+        return;
       }
-      clearStatusAfter(12000);
     } catch (err) {
       console.error('Contact form error:', err);
       setIsLoading(false);
@@ -212,12 +253,9 @@ const Contact = () => {
 
               <div className="mt-3">
                 <a
-                  href={`mailto:${RECIPIENT_EMAIL}?subject=Portfolio%20Inquiry`}
-                  className="btn btn-hero-primary w-100 d-flex align-items-center justify-content-center gap-2"
-                  style={{ borderRadius: '12px', padding: '12px' }}
+               
                 >
-                  <i className="bx bx-paper-plane fs-5"></i> Direct Email
-                  (Gmail)
+                 
                 </a>
               </div>
             </div>
@@ -296,7 +334,7 @@ const Contact = () => {
                       role="status"
                       aria-hidden="true"
                     ></span>
-                    Opening your email app...
+                    {useDirectSmtp ? 'Sending your message via SMTP...' : 'Opening your email app...'}
                   </div>
                 )}
                 {!isLoading && errorMessage && (
@@ -334,7 +372,7 @@ const Contact = () => {
                   disabled={isLoading}
                   className="w-100"
                 >
-                  {isLoading ? 'Opening Email...' : (
+                  {isLoading ? (useDirectSmtp ? 'Sending...' : 'Opening Email...') : (
                     <span className="d-flex align-items-center justify-content-center gap-2">
                       <i className="bx bx-paper-plane"></i> Send Message
                     </span>
@@ -344,6 +382,7 @@ const Contact = () => {
 
               <div className="mt-3 text-center" style={{ fontSize: '0.8rem', opacity: 0.7 }}>
                 <i className="bx bx-shield-quarter" style={{ marginRight: '4px' }}></i>
+                Protected & sent via secure SMTP
               </div>
             </form>
           </div>
